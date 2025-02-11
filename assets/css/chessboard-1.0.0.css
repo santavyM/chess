@@ -1,0 +1,170 @@
+/*! chessboard.js v1.0.0 | (c) 2019 Chris Oakman | MIT License chessboardjs.com/license */
+
+.clearfix-7da63 {
+  clear: both;
+}
+
+.board-b72b1 {
+  border: none; /* Odebere černý rámeček */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Jemný stín */
+}
+
+.square-55d63 {
+  float: left;
+  position: relative;
+}
+
+.white-1e1d7 {
+  background-color: #e8e6dc; /* Světlejší barva políček */
+}
+
+.black-3c85d {
+  background-color: #c8c5bb; /* Tmavší barva políček */
+}
+.highlight1-32417, .highlight2-9c5d2 {
+  box-shadow: inset 0 0 3px 3px yellow;
+}
+
+.notation-322f9 {
+  cursor: default;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  position: absolute;
+  font-weight: bold;
+}
+
+.alpha-d2270 {
+  bottom: -35px;
+  right: 35px;
+}
+
+.numeric-fc462 {
+  top: 35px;
+  left: -35px;
+}
+
+.piece-417db {
+  scale: 0.8;
+}
+
+:root {
+  --primary-color: #DFDDD2;
+  --secondary-color: #FD542C;
+  --gray: #807F79;
+  --card: #D6D4CA;
+}
+
+
+/*game*/
+.game-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  gap: 20px;
+}
+
+/* HISTORIE TAHŮ */
+.history {
+  width: 250px;
+  background: var(--card);
+  padding: 15px;
+  border-radius: 8px;
+  margin-right: 2rem;
+}
+
+
+/* ŠACHOVNICE */
+.board-container {
+  flex: 1;
+  text-align: center;
+}
+
+#board {
+  width: 500px;
+  height: 500px;
+  margin: auto;
+}
+
+/* CHAT */
+.chat {
+  width: 250px;
+  background: #f4f3ee;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.chat .messages {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.chat input {
+  width: calc(100% - 40px);
+  padding: 8px;
+  margin-top: 10px;
+}
+
+.chat button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* RESPONSIVITA */
+@media (max-width: 1024px) {
+  .game-container {
+      flex-direction: column;
+      align-items: center;
+  }
+  
+  .history, .chat {
+      width: 100%;
+      text-align: center;
+  }
+}
+
+.history h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+
+#move-history {
+  max-height: 500px;
+  overflow-y: auto;
+  list-style: none;
+  padding-right: 10px;
+}
+
+#move-history li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+}
+
+/* Scrollbar styl pouze pro WebKit prohlížeče (Chrome, Edge, Safari) */
+#move-history::-webkit-scrollbar {
+  width: 4px; /* Tloušťka scrollbarové lišty */
+}
+
+/* Styl pozadí scrollbarového tracku */
+#move-history::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05); /* Jemně šedé pozadí */
+  border-radius: 10px; /* Zaoblení tracku */
+}
+
+/* Styl samotného posuvníku */
+#move-history::-webkit-scrollbar-thumb {
+  background: black; /* Černý posuvník */
+  border-radius: 10px; /* Zaoblený pro lepší vzhled */
+}
+
+/* Hover efekt na scrollbar */
+#move-history::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.8); /* Zesvětlení při najetí myší */
+}

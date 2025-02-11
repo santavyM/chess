@@ -1,0 +1,553 @@
+:root {
+    --primary-color: #DFDDD2;
+    --secondary-color: #FD542C;
+    --gray: #807F79;
+    --card: #D6D4CA;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "neue-haas-grotesk-display", sans-serif;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background: var(--primary-color);
+    color: black;
+    font-size: 18px;
+    padding: 0;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+}
+
+/* 🔹 CONTAINER */
+.container {
+    max-width: 1800px;
+    width: 95%;
+    margin: 0 auto;
+    flex-grow: 1;
+    margin-bottom: 12rem;
+}
+
+/* 🔹 HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    width: 100%;
+}
+
+/* LEVÁ NAVIGACE (MENU) */
+.left-nav {
+    display: flex;
+    align-items: center;
+    
+}
+
+.left-nav img {
+    width: 22px; /* Ikona domečku */
+    height: 22px;
+    cursor: pointer;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+    padding: 8px 12px;
+}
+
+.navbar a:hover {
+    background-color: rgba(214, 212, 202, 1);
+}
+
+/* LOGO CHESSGAME */
+.logo {
+    font-weight: 600;
+    font-size: 40px; /* Zvýšení velikosti */
+    position: relative;
+    letter-spacing: 1px;
+}
+
+/* ČTVERCOVÝ PRVEK V LOGU */
+.square {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    background: black;
+    position: absolute;
+    top: 0.5rem;
+    right: -0.5rem;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+}
+
+.user-actions img {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
+
+/* TLAČÍTKO "NOVÁ HRA" */
+.btn-nav {
+    background: var(--secondary-color);
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 16px;
+    margin-left: 1rem;
+}
+
+.plus {
+    margin-right: 0.5rem;
+}
+
+/* RESPONSIVITA */
+@media screen and (max-width: 1024px) {
+    header {
+        padding: 15px 20px;
+    }
+
+    .left-nav a {
+        font-size: 16px;
+    }
+
+    .logo {
+        font-size: 26px;
+    }
+
+    .btn-nav {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+    .square {
+        display: inline-block;
+        width: 0.5rem;
+        height: 0.5rem;
+        background: black;
+        position: absolute;
+        top: 9px;
+        right: -2px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left-nav, .user-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .logo {
+        margin: 0 auto;
+    }
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 40px;
+        width: 100%;
+    }
+    .logo-container {
+        display: flex!important;
+    }
+    .desktop {
+        display: none;
+    }
+}
+
+.logo-container {
+    display: none;
+    align-items: center;
+    width: 100%; /* Aby logo bylo uprostřed */
+}
+
+
+/* HAMBURGER MENU */
+.hamburger-menu {
+    display: none; 
+    flex-direction: column;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.hamburger-menu span {
+    background: black;
+    width: 30px;
+    height: 3px;
+    margin: 4px;
+    transition: 0.3s;
+}
+
+/* MOBILNÍ MENU  */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background: var(--card);
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    transition: right 0.4s ease-in-out;
+    z-index: 9998;
+}
+
+.mobile-menu.show {
+    right: 0;
+}
+
+.close-menu {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+.mobile-menu .user-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.mobile-menu .left-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    text-align: left; 
+    gap: 15px; 
+    width: 100%;
+}
+
+.mobile-menu .btn-nav {
+    margin-left: 0rem;
+}
+
+/* 🔹 RESPONSIVITA */
+@media screen and (max-width: 800px) {
+    .hamburger-menu {
+        display: flex; /* Zobrazí hamburger */
+    }
+
+    .left-nav, .user-actions {
+        display: none; /* Skryjeme menu */
+    }
+}
+
+/* 🔹 HERO SEKCE */
+.hero {
+    display: flex;
+    justify-content: center; /* Centrovat karty na střed */
+    gap: 30px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto; /* Zajistí, že hero bude uprostřed */
+}
+
+/* 🔹 KARTY */
+.card {
+    background: var(--card); /* Světle šedé pozadí */
+    padding: 30px;
+    border-radius: 7px;
+    width: 800px; /* Stejná šířka pro obě karty */
+    height: 533px; /* Stejná výška */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background 0.3s ease; /* Plynulý přechod */
+}
+
+.card:hover {
+    background: #C6C4BA; /* Trochu tmavší než původní */
+}
+
+/* 🔹 LEVÁ KARTA */
+.left .top {
+    margin-bottom: auto; /* Posouvá dolní část dolů */
+}
+
+.left .bottom {
+    display: flex;
+    justify-content: space-between; /* Udrží text vlevo a fotku vpravo */
+    align-items: flex-end; /* Text bude dole */
+    height: 100%; /* Zajistí plnou výšku */
+}
+
+/* 🔹 SPODNÍ ČÁST LEFT */
+.right .text {
+    width: 100%;
+    margin-top: auto; /* Posune obsah dolů */
+}
+
+.btn-primary {
+    background: var(--secondary-color);
+    color: black;
+    border: none;
+    padding: 12px 40px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 24px; /* Zaoblené rohy */
+    font-size: 16px;
+    margin-top: 2rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: scale(1.1); /* Zvětší tlačítko o 10% */
+}
+
+.chess-piece {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.chess-piece img {
+    width: 400px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .chess-piece img {
+    transform: scale(1.1); /* Zvětší obrázek o 10% */
+}
+
+/* 🔹 PRAVÁ KARTA */
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* 🔹 NADPISY A TEXT */
+h1 {
+    font-size: 48px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.podnadpis {
+    color: var(--gray);
+    font-weight: 0;
+    font-size: 24px;
+}
+
+.gray-text {
+    color: gray;
+}
+
+.free-info {
+    font-size: 14px;
+    margin-bottom: 1.5rem;
+}
+
+
+/* 🔹 RESPONSIVITA */
+@media screen and (max-width: 1024px) {
+    .hero {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 90%;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .text, .chess-piece {
+        width: 100%;
+    }
+
+    .btn-primary {
+        align-self: center;
+        margin-bottom: 1rem;
+    }
+}
+
+
+/* CLOCK BOX */
+.clock {
+    position: fixed;
+    bottom: 20px; 
+    right: 20px;
+    background: black;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    width: 340px;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+@media screen and (max-width: 768px) {
+    .clock {
+         width: 300px;
+    }
+}
+
+.clock-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.clock-info {
+    flex: 1;
+    margin-left: 5px;
+}
+
+.time {
+    font-size: 48px;
+    font-weight: 600;
+    margin-top: -5px;
+    letter-spacing: 3px;
+    color: var(--primary-color);
+}
+
+.date {
+    font-size: 14px;
+    margin-top: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--primary-color);
+}
+
+.nameday {
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: 600;
+    color: gray;
+}
+
+
+/* ANALOG CLOCK */
+.analog-clock {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.5rem;
+}
+
+.dial {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dial span {
+    position: absolute;
+    width: 1px;
+    background: var(--gray);
+    left: 50%;
+    transform-origin: 50% 50%;
+}
+
+.hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: center bottom;
+    transform: translate(-50%, 0) rotate(0deg);
+}
+
+.hour-hand {
+    width: 2px;
+    height: 35px;
+    background: var(--primary-color);
+}
+
+.minute-hand {
+    width: 3px;
+    height: 55px;
+    background: var(--primary-color);
+}
+
+.second-hand {
+    position: absolute;
+    width: 1px;
+    height: 57px; /* Normální část ručičky */
+    background: #FD542C;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: center bottom;
+    transform: translate(-50%, 0) rotate(0deg);
+}
+
+.second-hand::before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 10px; /* Krátká část směrem dozadu */
+    background: #FD542C;
+    bottom: -10px; /* Posunutí dolů */
+    left: 0;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 14px;
+    color: #333;
+    background: transparent;
+    position: relative;
+}
+
+.copyright {
+    color: var(--gray);
+}

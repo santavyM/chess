@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chessgame</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://use.typekit.net/iwp0qte.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <!-- NAVIGACE (SKRYTÁ NA MOBILU) -->
+        <nav class="left-nav">
+            <a href="/"><img src="assets/home.png" alt="Home"></a>
+            <a href="#">Veřejné partie</a>
+            <a href="#">Turnaje</a>
+            <a href="#">Fórum</a>
+            <a href="#">ELO</a>
+        </nav>
+    
+        <!-- LOGO (VIDITELNÉ VŽDY) -->
+        <div class="logo desktop">Chessgame<span class="square"></span></div>
+         <!-- LOGO + HAMBURGER MENU -->
+            <div class="logo-container">
+                <div class="logo">Chessgame<span class="square"></span></div>
+
+                <!-- HAMBURGER MENU -->
+                <div class="hamburger-menu" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        <!-- UŽIVATELSKÉ AKCE (SKRYTÉ NA MOBILU) -->
+        <div class="user-actions">
+            <a href="#"><img src="assets/user.png" alt="User"></a>
+            <a href="#">Přihlášení</a>
+            <a href="#"><img src="assets/notification.png" alt="Notifications"></a>
+            <a href="/sachovnice.html"><button class="btn-nav"><span class="plus">+</span> Nová hra</button></a>
+        </div>    
+        <!-- MOBILNÍ MENU (SKRYTÉ VÝCHOZÍ STAV) -->
+        <div class="mobile-menu">
+            <div class="user-actions">
+                <button class="btn-nav"><span class="plus">+</span> Nová hra</button>
+                <button class="close-menu" onclick="toggleMenu()">✕</button>
+            </div>
+    
+            <div class="user-actions">
+                <a href="#"><img src="assets/user.png" alt="User"></a>
+                <a href="#">Přihlášení</a>
+                <a href="#"><img src="assets/notification.png" alt="Notifications"></a><br>
+            </div>
+    
+            <nav class="left-nav">
+                <a href="#">Veřejné partie</a>
+                <a href="#">Turnaje</a>
+                <a href="#">Fórum</a>
+                <a href="#">ELO</a>
+            </nav>
+        </div>
+    </header>
+    
+    
+    <main>
+        <div class="container">
+            <section class="hero">
+                <div class="card left">
+                    <div class="top">
+                        <h1>Hello, <br><span class="gray-text">you’re not logged in.</span></h1>
+                        <button class="btn-primary">Login or register</button>
+                    </div>
+                    <div class="bottom">
+                        <div class="text">
+                            <p class="free-info">
+                                <strong>It’s free.</strong> <br>
+                                Dive into the heart of chess with the FIDE Online Arena, the only online platform where chess aficionados can earn FIDE-recognized titles.
+                            </p>
+                        </div>
+                        <div class="chess-piece">
+                            <img src="assets/pawn1.png" alt="Black Pawn">
+                        </div>
+                    </div>
+                    
+                </div>
+            
+                <div class="card right">
+                    <div class="text bottom">
+                        <h2>Why play Chessgame?</h2>
+                        <p class="podnadpis">Play rated games against opponents of your strength. <br> 
+                           Get more hints in beginner games. <br> 
+                           Store your games in the cloud.
+                        </p>
+                        <button class="btn-primary">Login or register</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+            <div class="clock">
+                <div class="clock-content">
+                    <div class="clock-info">
+                        <div class="time">14:40</div>
+                        <div class="date">sobota<br>8. 2. 2025</div>
+                        <div class="nameday">Čestmír</div>
+                    </div>
+                    <div class="analog-clock">
+                        <div class="dial"></div>
+                        <div class="hand hour-hand"></div>
+                        <div class="hand minute-hand"></div>
+                        <div class="hand second-hand"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+        
+        
+            <footer class="footer">
+                <div class="copyright">© 2008-2023 Studio 9 s.r.o.</div>
+            </footer>
+        </main>
+
+</body>
+</html>

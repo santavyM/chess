@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hra proti AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://use.typekit.net/iwp0qte.css">
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="assets/css/chessboard-1.0.0.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="assets/js/chessboard-1.0.0.min.js"></script>
+
+
+</head>
+<body>
+
+    <header class="navbar">
+        <!-- NAVIGACE (SKRYTÁ NA MOBILU) -->
+        <nav class="left-nav">
+            <a href="/"><img src="assets/home.png" alt="Home"></a>
+            <a href="#">Veřejné partie</a>
+            <a href="#">Turnaje</a>
+            <a href="#">Fórum</a>
+            <a href="#">ELO</a>
+        </nav>
+    
+        <!-- LOGO (VIDITELNÉ VŽDY) -->
+        <div class="logo desktop">Chessgame<span class="square"></span></div>
+         <!-- LOGO + HAMBURGER MENU -->
+            <div class="logo-container">
+                <div class="logo">Chessgame<span class="square"></span></div>
+
+                <!-- HAMBURGER MENU -->
+                <div class="hamburger-menu" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        <!-- UŽIVATELSKÉ AKCE (SKRYTÉ NA MOBILU) -->
+        <div class="user-actions">
+            <a href="#"><img src="assets/user.png" alt="User"></a>
+            <a href="#">Přihlášení</a>
+            <a href="#"><img src="assets/notification.png" alt="Notifications"></a>
+            <a href="/sachovnice.html"><button class="btn-nav"><span class="plus">+</span> Nová hra</button></a>
+        </div>    
+        <!-- MOBILNÍ MENU (SKRYTÉ VÝCHOZÍ STAV) -->
+        <div class="mobile-menu">
+            <div class="user-actions">
+                <button class="btn-nav"><span class="plus">+</span> Nová hra</button>
+                <button class="close-menu" onclick="toggleMenu()">✕</button>
+            </div>
+    
+            <div class="user-actions">
+                <a href="#"><img src="assets/user.png" alt="User"></a>
+                <a href="#">Přihlášení</a>
+                <a href="#"><img src="assets/notification.png" alt="Notifications"></a><br>
+            </div>
+    
+            <nav class="left-nav">
+                <a href="#">Veřejné partie</a>
+                <a href="#">Turnaje</a>
+                <a href="#">Fórum</a>
+                <a href="#">ELO</a>
+            </nav>
+        </div>
+    </header>
+    
+    
+    <main>
+        <div class="game-container">
+            <!-- Historie tahů -->
+            <aside class="history">
+                <h3>Tahy</h3>
+                
+                
+            
+                <ul id="move-history">
+                    <li><span>1</span> <span>♜ D2 - D4</span> <span>D7 - D6</span></li>
+                    <li><span>2</span> <span>D2 - D4</span> <span>♟ D7 - D6</span></li>
+                    <li><span>3</span> <span>D2 - D4</span> <span>D7 - D6</span></li>
+                </ul>
+            </aside>
+
+    
+            <!-- Šachovnice uprostřed -->
+            <section class="board-container">
+                <div id="board" style="max-width: 600px"></div>
+                <button class="btn-primary" onclick="resetGame()">Restart hry</button>
+            </section>
+    
+            <!-- Chat -->
+            <aside class="chat">
+                <h3>Chat</h3>
+                <div class="messages">
+                    <p>What is faster? Touch screen or mouse movements?</p>
+                    <p>I don’t know. Let me guess - I think maybe mouse?</p>
+                    <p>No way...</p>
+                    <p class="highlight">Hahaha</p>
+                </div>
+                <input type="text" placeholder="I can write some words here...">
+                <button>➤</button>
+            </aside>
+        </div>
+
+    
+        <div class="clock">
+            <div class="clock-content">
+                <div class="clock-info">
+                    <div class="time">14:40</div>
+                    <div class="date">sobota<br>8. 2. 2025</div>
+                    <div class="nameday">Čestmír</div>
+                </div>
+                <div class="analog-clock">
+                    <div class="dial"></div>
+                    <div class="hand hour-hand"></div>
+                    <div class="hand minute-hand"></div>
+                    <div class="hand second-hand"></div>
+                    <div class="center-dot"></div>
+                </div>
+            </div>
+        </div>
+        
+            <footer class="footer">
+                <div class="copyright">© 2008-2023 Studio 9 s.r.o.</div>
+            </footer>
+        </main>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+    console.log("Inicializace šachovnice...");
+
+    board = Chessboard('board', {
+        draggable: true,
+        position: 'start',
+        onDrop: handleMove
+    });
+
+    console.log("Board inicializován:", board);
+});
+
+// ✅ Funkce pro zpracování hráčova tahu
+function handleMove(source, target) {
+    var move = source + target;
+    console.log("Tah hráče:", move);
+
+    let prevFen = board.fen(); // 🔥 Uložíme stav před tahem
+
+    fetch("http://127.0.0.1:8000/move", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ move: move })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Tah hráče:", move);
+        console.log("AI odpověď:", data.ai_move || "Žádný tah AI");
+
+        if (data.error) {
+            alert("❌ Neplatný tah!");
+            board.position(prevFen); // 🔥 Okamžitě vrátíme předchozí pozici
+            return;
+        }
+
+        // ✅ Aktualizujeme pozici šachovnice podle nového FEN
+        board.position(data.fen);
+
+        // ✅ Přidáme tahy do historie ve správném formátu
+        updateMoveHistory(formatMove(data.player_move), formatMove(data.ai_move));
+    })
+    .catch(error => {
+        console.error("❌ Chyba:", error);
+        board.position(prevFen); // 🔥 Pokud selže server, vrátíme pozici zpět
+    });
+}
+
+// ✅ Funkce pro formátování tahu (e2e3 → E2-E3)
+function formatMove(move) {
+    if (!move) return null; // Pokud AI nemá tah, vrátíme null
+    return move.slice(0, 2).toUpperCase() + "-" + move.slice(2, 4).toUpperCase();
+}
+
+// ✅ Funkce pro aktualizaci historie tahů
+function updateMoveHistory(playerMove, aiMove) {
+    const moveHistory = document.getElementById("move-history");
+
+    let moveNumber = Math.floor(moveHistory.children.length / 2) + 1; // Počet tahů
+
+    let playerMoveHTML = `<li><span>${moveNumber}.</span> <span>Já</span> <span>${playerMove}</span></li>`;
+    let aiMoveHTML = aiMove ? `<li><span>${moveNumber}.</span> <span>AI</span> <span>${aiMove}</span></li>` : "";
+
+    moveHistory.innerHTML += playerMoveHTML + aiMoveHTML; // Přidání do historie
+}
+
+// ✅ Funkce pro reset hry
+async function resetGame() {
+    try {
+        const response = await fetch("http://127.0.0.1:8000/reset", { method: "POST" });
+        const data = await response.json();
+        console.log("♻️ Restart hry:", data.message);
+        alert(data.message);
+
+        // ✅ Resetujeme šachovnici na startovní pozici
+        board.position('start');
+
+        // ✅ Vyčistíme historii tahů
+        document.getElementById("move-history").innerHTML = "";
+    } catch (error) {
+        console.error("❌ Chyba při restartu hry:", error);
+    }
+}
+
+        </script>
+</body>
+</html>
