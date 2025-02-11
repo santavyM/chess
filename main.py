@@ -75,17 +75,30 @@ def player_move(move_request: MoveRequest):
 def get_ai_move():
     """Použije Stockfish pro výpočet nejlepšího tahu."""
     if stockfish is None:
-        print("❌ Stockfish nebyl správně spuštěn!")
-        return None
+        print("❌ Stockfish neběží!")
+        return None  # Pokud Stockfish neběží, vrátíme None
 
     try:
-        with chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH) as engine:
-            result = engine.play(board, chess.engine.Limit(time=0.5))  # AI přemýšlí 0.5 sekundy
-            print(f"✅ AI tah: {result.move}")
-            return result.move
+        fen = board.fen()
+        print(f"📜 Posílám FEN do Stockfish: {fen}")
+
+        stockfish.stdin.write(f"position fen {fen}\n")
+        stockfish.stdin.write("go depth 10\n")
+        stockfish.stdin.flush()
+
+        while True:
+            output = stockfish.stdout.readline().strip()
+            print(f"🔄 Stockfish odpověď: {output}")
+
+            if output.startswith("bestmove"):
+                best_move = output.split(" ")[1]
+                print(f"✅ Nejlepší tah AI: {best_move}")
+                return chess.Move.from_uci(best_move)
+
     except Exception as e:
         print(f"❌ Chyba při komunikaci se Stockfish: {e}")
         return None
+
 
 @app.post("/reset")
 def reset_game():
