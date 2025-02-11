@@ -19,7 +19,7 @@ app.add_middleware(
 )
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STOCKFISH_PATH = os.path.join(BASE_DIR, "stockfish3", "stockfish-ubuntu-x86-64")
+STOCKFISH_PATH = os.path.join(BASE_DIR, "stockfish_14_linux_x64", "stockfish_14_x64")
 os.chmod(STOCKFISH_PATH, 0o755)  # Nastaví spustitelná práva
 
 print(f"🔍 Pokouším se spustit Stockfish na cestě: {STOCKFISH_PATH}")
