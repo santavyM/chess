@@ -19,7 +19,7 @@ app.add_middleware(
 
 # ✅ Cesta ke Stockfish
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STOCKFISH_PATH = os.path.join(BASE_DIR, "stockfish", "stockfish-windows-x86-64-avx2.exe")
+STOCKFISH_PATH = os.path.join(BASE_DIR, "stockfish2", "stockfish-ubuntu-x86-64-avx2")
 
 print(f"🔍 Pokouším se spustit Stockfish na cestě: {STOCKFISH_PATH}")
 
